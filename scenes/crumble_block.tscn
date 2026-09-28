@@ -1,0 +1,51 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/crumble_block.gd" id="1_crumble"]
+[ext_resource type="Texture2D" path="res://assets/traps/crumble/crumble.png" id="2_tex"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_block"]
+size = Vector2(48, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sensor"]
+size = Vector2(42, 9)
+
+[sub_resource type="Gradient" id="Gradient_debris"]
+offsets = PackedFloat32Array(0, 0.7, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="CrumbleBlock" type="StaticBody2D"]
+collision_layer = 5
+script = ExtResource("1_crumble")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("2_tex")
+hframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_block")
+
+[node name="Sensor" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensor"]
+position = Vector2(0, -28)
+shape = SubResource("RectangleShape2D_sensor")
+
+[node name="Debris" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 14
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.9
+emission_shape = 3
+emission_rect_extents = Vector2(21, 21)
+direction = Vector2(0, 1)
+spread = 60.0
+gravity = Vector2(0, 1400)
+initial_velocity_min = 20.0
+initial_velocity_max = 120.0
+scale_amount_min = 3.0
+scale_amount_max = 9.0
+color = Color(0.92941177, 0.7058824, 0.6313726, 1)
+color_ramp = SubResource("Gradient_debris")

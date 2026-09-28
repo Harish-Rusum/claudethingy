@@ -1,0 +1,75 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/laser.gd" id="1_laser"]
+[ext_resource type="Texture2D" path="res://assets/traps/laser/emitter.png" id="2_emitter"]
+[ext_resource type="Texture2D" path="res://assets/traps/laser/beam.png" id="3_beam"]
+[ext_resource type="Texture2D" path="res://assets/traps/laser/warn.png" id="4_warn"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_add"]
+blend_mode = 1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_beam"]
+size = Vector2(100, 12)
+
+[sub_resource type="Gradient" id="Gradient_spark"]
+colors = PackedColorArray(1, 0.99607843, 0.99607843, 1, 1, 0.5568628, 0.5019608, 0)
+
+[node name="Laser" type="Node2D"]
+script = ExtResource("1_laser")
+
+[node name="Glow" type="Line2D" parent="."]
+material = SubResource("CanvasItemMaterial_add")
+points = PackedVector2Array(21, 0, 400, 0)
+width = 52.0
+default_color = Color(0.77254903, 0.22745098, 0.6156863, 0.28)
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Beam" type="Line2D" parent="."]
+points = PackedVector2Array(21, 0, 400, 0)
+width = 21.0
+texture = ExtResource("3_beam")
+texture_mode = 2
+
+[node name="Warn" type="Line2D" parent="."]
+visible = false
+points = PackedVector2Array(21, 0, 400, 0)
+width = 9.0
+texture = ExtResource("4_warn")
+texture_mode = 2
+
+[node name="Emitter" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("2_emitter")
+hframes = 3
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(21, 0)
+target_position = Vector2(2400, 0)
+collision_mask = 4
+
+[node name="Hitbox" type="Area2D" parent="." groups=["trap"]]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(71, 0)
+shape = SubResource("RectangleShape2D_beam")
+
+[node name="Sparks" type="CPUParticles2D" parent="."]
+position = Vector2(400, 0)
+emitting = false
+amount = 14
+lifetime = 0.35
+direction = Vector2(-1, 0)
+spread = 70.0
+gravity = Vector2(0, 500)
+initial_velocity_min = 90.0
+initial_velocity_max = 260.0
+scale_amount_min = 3.0
+scale_amount_max = 6.0
+color_ramp = SubResource("Gradient_spark")
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"
+max_distance = 2600.0
+attenuation = 1.6

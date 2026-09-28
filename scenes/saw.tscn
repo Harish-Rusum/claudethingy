@@ -1,0 +1,58 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/saw.gd" id="1_saw"]
+[ext_resource type="Texture2D" path="res://assets/traps/saw/saw.png" id="2_saw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s0"]
+atlas = ExtResource("2_saw")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s1"]
+atlas = ExtResource("2_saw")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s2"]
+atlas = ExtResource("2_saw")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3"]
+atlas = ExtResource("2_saw")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_saw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s3")
+}],
+"loop": true,
+"name": &"spin",
+"speed": 24.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_saw"]
+radius = 30.0
+
+[node name="Saw" type="Area2D" groups=["trap"]]
+monitoring = false
+script = ExtResource("1_saw")
+
+[node name="Rail" type="Node2D" parent="."]
+z_index = -1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_saw")
+animation = &"spin"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_saw")

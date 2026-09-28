@@ -1,0 +1,99 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/intro.gd" id="1_intro"]
+[ext_resource type="Texture2D" uid="uid://c2q78djs51c7i" path="res://assets/background/Green.png" id="2_bg"]
+[ext_resource type="Texture2D" path="res://assets/ui/planet.png" id="3_planet"]
+[ext_resource type="Texture2D" path="res://assets/ui/icon_star_small.png" id="4_star"]
+[ext_resource type="TileSet" uid="uid://ccnk880u5c08d" path="res://terrain_tileset.tres" id="5_tiles"]
+[ext_resource type="SpriteFrames" path="res://assets/player/player_frames.tres" id="6_frames"]
+[ext_resource type="AudioStream" uid="uid://c0pngvlfjf604" path="res://assets/sounds/lofistartpage.mp3" id="7_music"]
+[ext_resource type="PackedScene" path="res://scenes/cutscene_ui.tscn" id="8_ui"]
+
+[sub_resource type="Gradient" id="Gradient_twinkle"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_trail"]
+colors = PackedColorArray(0.95686275, 0.8235294, 0.7058824, 0, 1, 0.99607843, 0.99607843, 1)
+
+[sub_resource type="Gradient" id="Gradient_dust"]
+offsets = PackedFloat32Array(0, 0.6, 1)
+colors = PackedColorArray(0.95686275, 0.8235294, 0.7058824, 1, 0.5921569, 0.45882353, 0.6509804, 0.8, 0.5921569, 0.45882353, 0.6509804, 0)
+
+[node name="Intro" type="Node2D"]
+script = ExtResource("1_intro")
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="Sky" type="ColorRect" parent="World"]
+offset_top = -1200.0
+offset_right = 1920.0
+offset_bottom = 4.0
+color = Color(0.1764706, 0.12156863, 0.21960784, 1)
+
+[node name="SkyStars" type="CPUParticles2D" parent="World"]
+position = Vector2(960, -600)
+amount = 60
+lifetime = 3.0
+preprocess = 3.0
+emission_shape = 3
+emission_rect_extents = Vector2(960, 600)
+gravity = Vector2(0, 0)
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_twinkle")
+
+[node name="Planet" type="Sprite2D" parent="World"]
+position = Vector2(1180, -470)
+scale = Vector2(5, 5)
+texture = ExtResource("3_planet")
+
+[node name="Bg" type="Sprite2D" parent="World"]
+position = Vector2(960, 540)
+texture = ExtResource("2_bg")
+
+[node name="Ground" type="TileMapLayer" parent="World"]
+scale = Vector2(3, 3)
+tile_set = ExtResource("5_tiles")
+
+[node name="Trail" type="Line2D" parent="World"]
+width = 12.0
+gradient = SubResource("Gradient_trail")
+
+[node name="Falling" type="Sprite2D" parent="World"]
+visible = false
+scale = Vector2(4, 4)
+texture = ExtResource("4_star")
+
+[node name="Dust" type="CPUParticles2D" parent="World"]
+position = Vector2(820, 810)
+emitting = false
+amount = 36
+lifetime = 0.9
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, -1)
+spread = 75.0
+gravity = Vector2(0, 900)
+initial_velocity_min = 160.0
+initial_velocity_max = 520.0
+damping_min = 40.0
+damping_max = 80.0
+scale_amount_min = 3.0
+scale_amount_max = 9.0
+color_ramp = SubResource("Gradient_dust")
+
+[node name="Guy" type="AnimatedSprite2D" parent="World"]
+visible = false
+position = Vector2(820, 768)
+scale = Vector2(3, 3)
+sprite_frames = ExtResource("6_frames")
+animation = &"idle1"
+
+[node name="UI" parent="." instance=ExtResource("8_ui")]
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_music")
+volume_db = -6.0
+autoplay = true
+bus = &"Music"

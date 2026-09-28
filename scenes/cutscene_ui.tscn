@@ -1,0 +1,72 @@
+[gd_scene format=3]
+
+[node name="UI" type="CanvasLayer"]
+layer = 10
+
+[node name="BarTop" type="ColorRect" parent="."]
+offset_right = 1920.0
+color = Color(0.105882354, 0.05882353, 0.11764706, 1)
+
+[node name="BarBottom" type="ColorRect" parent="."]
+offset_top = 1080.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.105882354, 0.05882353, 0.11764706, 1)
+
+[node name="Caption" type="Label" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -800.0
+offset_top = -102.0
+offset_right = 800.0
+offset_bottom = -42.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Flash" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0.99607843, 0.99607843, 0)
+
+[node name="Skip" type="HBoxContainer" parent="."]
+modulate = Color(1, 1, 1, 0.4)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -468.0
+offset_top = 36.0
+offset_right = -36.0
+offset_bottom = 72.0
+grow_horizontal = 0
+theme_override_constants/separation = 15
+alignment = 2
+
+[node name="Label" type="Label" parent="Skip"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_type_variation = &"SmallLabel"
+text = "hold esc to skip"
+
+[node name="Bar" type="ColorRect" parent="Skip"]
+custom_minimum_size = Vector2(120, 18)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.105882354, 0.05882353, 0.11764706, 1)
+
+[node name="Fill" type="ColorRect" parent="Skip/Bar"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 3.0
+offset_bottom = 15.0
+color = Color(0.92941177, 0.7058824, 0.6313726, 1)

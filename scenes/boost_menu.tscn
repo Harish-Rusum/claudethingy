@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://c6b3et2vxurl1"]
+
+[ext_resource type="Script" uid="uid://bo7xprhb20wc1" path="res://boost_menu.gd" id="1_7efx1"]
+
+[node name="BoostMenu" type="CanvasLayer"]
+process_mode = 3
+layer = 5
+script = ExtResource("1_7efx1")
+
+[node name="Dim" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.105882354, 0.05882353, 0.11764706, 0.8)
+
+[node name="Header" type="VBoxContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -700.0
+offset_top = 96.0
+offset_right = 700.0
+offset_bottom = 206.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/separation = 9
+
+[node name="Title" type="Label" parent="Header"]
+layout_mode = 2
+theme_type_variation = &"HeaderLabel"
+text = "pick a boost"
+horizontal_alignment = 1
+
+[node name="Sub" type="Label" parent="Header"]
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "you get 20s. boosts eat some of it."
+horizontal_alignment = 1
+
+[node name="Cards" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = 36.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Bottom" type="HBoxContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -420.0
+offset_top = -150.0
+offset_right = 420.0
+offset_bottom = -84.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Skip" type="Button" parent="Bottom"]
+custom_minimum_size = Vector2(270, 0)
+layout_mode = 2
+text = "no thanks"
+
+[node name="Hint" type="Label" parent="Bottom"]
+layout_mode = 2
+theme_type_variation = &"SmallLabel"
+text = "1 2 3 to pick, 4 to skip"

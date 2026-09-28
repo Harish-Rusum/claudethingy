@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bx2x5ighyhjsw"]
+
+[ext_resource type="Script" uid="uid://cne78lr7a0vxd" path="res://scripts/transition.gd" id="1_rerct"]
+[ext_resource type="Shader" path="res://shaders/diamond_wipe.gdshader" id="2_wipe"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wipe"]
+shader = ExtResource("2_wipe")
+shader_parameter/progress = 0.0
+shader_parameter/flip = false
+shader_parameter/cells = Vector2(40, 22.5)
+shader_parameter/color = Color(0.105882354, 0.05882353, 0.11764706, 1)
+
+[node name="Transition" type="CanvasLayer"]
+layer = 100
+script = ExtResource("1_rerct")
+
+[node name="Wipe" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_wipe")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

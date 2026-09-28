@@ -1,0 +1,237 @@
+[gd_scene format=3 uid="uid://bec7v0awiriaj"]
+
+[ext_resource type="Script" path="res://scripts/ending.gd" id="1_end"]
+[ext_resource type="Texture2D" path="res://assets/background/Space_empty.png" id="2_bg"]
+[ext_resource type="Texture2D" path="res://assets/ui/planet.png" id="3_planet"]
+[ext_resource type="Texture2D" path="res://assets/ui/icon_star_small.png" id="4_star"]
+[ext_resource type="Texture2D" path="res://assets/traps/laser/beam.png" id="5_beam"]
+[ext_resource type="TileSet" uid="uid://ccnk880u5c08d" path="res://terrain_tileset.tres" id="6_tiles"]
+[ext_resource type="SpriteFrames" path="res://assets/player/player_frames.tres" id="7_frames"]
+[ext_resource type="PackedScene" path="res://scenes/cutscene_ui.tscn" id="8_ui"]
+[ext_resource type="AudioStream" uid="uid://c0pngvlfjf604" path="res://assets/sounds/lofistartpage.mp3" id="9_music"]
+[ext_resource type="Texture2D" path="res://assets/ui/icon_star.png" id="10_star_big"]
+[ext_resource type="Texture2D" path="res://assets/ui/icon_skull.png" id="11_skull"]
+[ext_resource type="Texture2D" path="res://assets/ui/icon_clock.png" id="12_clock"]
+
+[sub_resource type="Gradient" id="Gradient_twinkle"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_add"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_spark"]
+colors = PackedColorArray(1, 0.99607843, 0.99607843, 1, 1, 0.5568628, 0.5019608, 0)
+
+[sub_resource type="Gradient" id="Gradient_dust"]
+offsets = PackedFloat32Array(0, 0.6, 1)
+colors = PackedColorArray(1, 0.5568628, 0.5019608, 1, 0.77254903, 0.22745098, 0.6156863, 0.8, 0.77254903, 0.22745098, 0.6156863, 0)
+
+[node name="Ending" type="Node2D"]
+script = ExtResource("1_end")
+
+[node name="Bg" type="Sprite2D" parent="."]
+position = Vector2(960, 540)
+texture = ExtResource("2_bg")
+
+[node name="Stars" type="CPUParticles2D" parent="."]
+position = Vector2(960, 400)
+amount = 50
+lifetime = 3.0
+preprocess = 3.0
+emission_shape = 3
+emission_rect_extents = Vector2(960, 400)
+gravity = Vector2(0, 0)
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_twinkle")
+
+[node name="Planet" type="Sprite2D" parent="."]
+position = Vector2(1330, 320)
+scale = Vector2(7, 7)
+texture = ExtResource("3_planet")
+
+[node name="NewStar" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(4, 4)
+texture = ExtResource("4_star")
+
+[node name="Beam" type="Line2D" parent="."]
+material = SubResource("CanvasItemMaterial_add")
+width = 0.0
+texture = ExtResource("5_beam")
+texture_mode = 2
+
+[node name="Island" type="TileMapLayer" parent="."]
+scale = Vector2(3, 3)
+tile_set = ExtResource("6_tiles")
+
+[node name="Dust" type="CPUParticles2D" parent="."]
+position = Vector2(552, 816)
+emitting = false
+amount = 20
+lifetime = 0.6
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, -1)
+spread = 80.0
+gravity = Vector2(0, 700)
+initial_velocity_min = 80.0
+initial_velocity_max = 260.0
+scale_amount_min = 3.0
+scale_amount_max = 6.0
+color_ramp = SubResource("Gradient_dust")
+
+[node name="Guy" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(552, 768)
+scale = Vector2(3, 3)
+sprite_frames = ExtResource("7_frames")
+animation = &"idle2"
+
+[node name="Sparkles" type="CPUParticles2D" parent="Guy"]
+emitting = false
+amount = 30
+lifetime = 0.8
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector2(0, 1)
+spread = 60.0
+gravity = Vector2(0, 30)
+initial_velocity_min = 10.0
+initial_velocity_max = 40.0
+scale_amount_min = 1.0
+scale_amount_max = 2.0
+color_ramp = SubResource("Gradient_spark")
+
+[node name="Burst" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 40
+lifetime = 1.0
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 60)
+initial_velocity_min = 80.0
+initial_velocity_max = 320.0
+damping_min = 60.0
+damping_max = 120.0
+scale_amount_min = 3.0
+scale_amount_max = 6.0
+color_ramp = SubResource("Gradient_spark")
+
+[node name="UI" parent="." instance=ExtResource("8_ui")]
+
+[node name="UI2" type="CanvasLayer" parent="."]
+layer = 11
+
+[node name="Stats" type="PanelContainer" parent="UI2"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -250.0
+offset_right = 360.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="UI2/Stats"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Title" type="Label" parent="UI2/Stats/VBox"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+text = "the end"
+horizontal_alignment = 1
+
+[node name="Grid" type="GridContainer" parent="UI2/Stats/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 24
+theme_override_constants/v_separation = 18
+columns = 3
+
+[node name="StarIcon" type="TextureRect" parent="UI2/Stats/VBox/Grid"]
+custom_minimum_size = Vector2(39, 39)
+layout_mode = 2
+texture = ExtResource("10_star_big")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="StarsLabel" type="Label" parent="UI2/Stats/VBox/Grid"]
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "stars"
+
+[node name="Stars" type="Label" parent="UI2/Stats/VBox/Grid"]
+layout_mode = 2
+text = "0 / 60"
+horizontal_alignment = 2
+
+[node name="SkullIcon" type="TextureRect" parent="UI2/Stats/VBox/Grid"]
+custom_minimum_size = Vector2(39, 33)
+layout_mode = 2
+texture = ExtResource("11_skull")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DeathsLabel" type="Label" parent="UI2/Stats/VBox/Grid"]
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "deaths"
+
+[node name="Deaths" type="Label" parent="UI2/Stats/VBox/Grid"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="ClockIcon" type="TextureRect" parent="UI2/Stats/VBox/Grid"]
+custom_minimum_size = Vector2(39, 39)
+layout_mode = 2
+texture = ExtResource("12_clock")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TimeLabel" type="Label" parent="UI2/Stats/VBox/Grid"]
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "best times, added up"
+
+[node name="Time" type="Label" parent="UI2/Stats/VBox/Grid"]
+layout_mode = 2
+text = "0:00.00"
+horizontal_alignment = 2
+
+[node name="Roll" type="VBoxContainer" parent="UI2"]
+offset_left = 460.0
+offset_top = 1100.0
+offset_right = 1460.0
+offset_bottom = 1600.0
+theme_override_constants/separation = 42
+
+[node name="Press" type="Label" parent="UI2"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -120.0
+offset_right = 400.0
+offset_bottom = -84.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_type_variation = &"DimLabel"
+text = "space to go back"
+horizontal_alignment = 1
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_music")
+volume_db = -4.0
+autoplay = true
+bus = &"Music"

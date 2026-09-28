@@ -1,0 +1,170 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/results.gd" id="1_res"]
+[ext_resource type="Texture2D" path="res://assets/ui/icon_star_empty.png" id="2_star"]
+[ext_resource type="Texture2D" path="res://assets/ui/icon_skull.png" id="3_skull"]
+
+[node name="Results" type="CanvasLayer"]
+process_mode = 3
+layer = 20
+script = ExtResource("1_res")
+
+[node name="Dim" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.105882354, 0.05882353, 0.11764706, 0.72)
+
+[node name="Panel" type="PanelContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -390.0
+offset_top = -285.0
+offset_right = 390.0
+offset_bottom = 285.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Clear" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+text = "clear!"
+horizontal_alignment = 1
+
+[node name="Tag" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "1-1   level"
+horizontal_alignment = 1
+
+[node name="Stars" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 42
+alignment = 1
+
+[node name="S1" type="VBoxContainer" parent="Panel/VBox/Stars"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Icon" type="TextureRect" parent="Panel/VBox/Stars/S1"]
+custom_minimum_size = Vector2(91, 91)
+layout_mode = 2
+texture = ExtResource("2_star")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Par" type="Label" parent="Panel/VBox/Stars/S1"]
+layout_mode = 2
+theme_type_variation = &"SmallLabel"
+text = "finish"
+horizontal_alignment = 1
+
+[node name="S2" type="VBoxContainer" parent="Panel/VBox/Stars"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Icon" type="TextureRect" parent="Panel/VBox/Stars/S2"]
+custom_minimum_size = Vector2(91, 91)
+layout_mode = 2
+texture = ExtResource("2_star")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Par" type="Label" parent="Panel/VBox/Stars/S2"]
+layout_mode = 2
+theme_type_variation = &"SmallLabel"
+text = "< 10.0s"
+horizontal_alignment = 1
+
+[node name="S3" type="VBoxContainer" parent="Panel/VBox/Stars"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Icon" type="TextureRect" parent="Panel/VBox/Stars/S3"]
+custom_minimum_size = Vector2(91, 91)
+layout_mode = 2
+texture = ExtResource("2_star")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Par" type="Label" parent="Panel/VBox/Stars/S3"]
+layout_mode = 2
+theme_type_variation = &"SmallLabel"
+text = "< 5.0s"
+horizontal_alignment = 1
+
+[node name="Time" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/VBox/Time"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_type_variation = &"DimLabel"
+text = "time"
+
+[node name="Value" type="Label" parent="Panel/VBox/Time"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "0.00s"
+
+[node name="Best" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_type_variation = &"SmallLabel"
+text = "best 0.00s"
+horizontal_alignment = 1
+
+[node name="Deaths" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Panel/VBox/Deaths"]
+custom_minimum_size = Vector2(33, 27)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("3_skull")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Value" type="Label" parent="Panel/VBox/Deaths"]
+layout_mode = 2
+text = "0"
+
+[node name="Extra" type="Label" parent="Panel/VBox"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.7882353, 0.7019608, 1)
+text = "world 2 unlocked"
+horizontal_alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Next" type="Button" parent="Panel/VBox/Buttons"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "next"
+
+[node name="Retry" type="Button" parent="Panel/VBox/Buttons"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "retry"
+
+[node name="Levels" type="Button" parent="Panel/VBox/Buttons"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "levels"
